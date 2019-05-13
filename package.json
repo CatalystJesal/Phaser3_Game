@@ -1,0 +1,22 @@
+{
+  "name": "first-game",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "start": "npm run build && webpack-dev-server --port=3000"
+  },
+  "author": "Jesal Patel",
+  "license": "ISC",
+  "dependencies": {
+    "http-server": "^0.11.1",
+    "nodemon": "^1.19.0",
+    "phaser": "^3.16.2",
+    "webpack": "^4.30.0",
+    "webpack-dev-server": "^3.3.1"
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.3.2"
+  }
+}
