@@ -1,4 +1,5 @@
 import "phaser";
+import { TextButton } from "../ui-elements/TextButton";
 
 var playerGraphics;
 var blockGraphics;
@@ -30,6 +31,8 @@ var retryBtn;
 var homeBtn;
 
 var menuFontStyle;
+
+var btnStateColors;
 
 export default class GameScene extends Phaser.Scene {
   constructor() {
@@ -68,6 +71,11 @@ export default class GameScene extends Phaser.Scene {
       align: "center",
       color: "#661400"
     };
+
+    btnStateColors = {
+      hover: "#5b1212",
+      rest: "#661400"
+    };
   }
 
   preload() {
@@ -99,15 +107,27 @@ export default class GameScene extends Phaser.Scene {
       .text(400, 300, "Game Over", gameOverFontStyle)
       .setOrigin(0.5, 0.5);
 
-    retryBtn = this.add
-      .text(400, 350, "Retry", menuFontStyle, () => this.onRetry())
-      .setOrigin(0.5, 0.5);
+    retryBtn = new TextButton(
+      this,
+      400,
+      350,
+      "Retry",
+      menuFontStyle,
+      btnStateColors,
+      () => this.resetGame()
+    ).setOrigin(0.5, 0.5);
 
     this.add.existing(retryBtn);
 
-    homeBtn = this.add
-      .text(400, 390, "Home", menuFontStyle, () => this.onHome())
-      .setOrigin(0.5, 0.5);
+    homeBtn = new TextButton(
+      this,
+      400,
+      390,
+      "Home",
+      menuFontStyle,
+      btnStateColors,
+      () => this.goHome()
+    ).setOrigin(0.5, 0.5);
 
     this.add.existing(homeBtn);
 
@@ -221,11 +241,21 @@ export default class GameScene extends Phaser.Scene {
     return value <= max && value >= min;
   }
 
-  onRetry() {
-    this.scene.start("Game");
+  resetGame() {
+    isGameOver = false;
+    gameEndContainer.setVisible(false);
+    player = {
+      x: 380,
+      y: 550,
+      width: 18,
+      height: 18
+    };
+    blocks = [];
+    score = 0;
   }
 
-  onHome() {
+  goHome() {
+    this.resetGame();
     this.scene.start("Home");
   }
 }

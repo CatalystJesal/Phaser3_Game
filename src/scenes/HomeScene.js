@@ -4,6 +4,8 @@ import { TextButton } from "../ui-elements/TextButton";
 var fontStyle;
 var playBtn;
 
+var btnStateColors;
+
 export default class HomeScene extends Phaser.Scene {
   constructor() {
     super("Home");
@@ -12,11 +14,22 @@ export default class HomeScene extends Phaser.Scene {
       fontFamily: "Helvetica",
       align: "center"
     };
+
+    btnStateColors = {
+      hover: "#ccc9c9",
+      rest: "#ffffff"
+    };
   }
 
   create() {
-    playBtn = new TextButton(this, 400, 300, "Play", fontStyle, () =>
-      this.onPlay()
+    playBtn = new TextButton(
+      this,
+      400,
+      300,
+      "Play",
+      fontStyle,
+      btnStateColors,
+      () => this.onPlay()
     ).setOrigin(0.5, 0.5);
 
     this.add.existing(playBtn);
