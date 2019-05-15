@@ -1,5 +1,4 @@
 import "phaser";
-import { TextButton } from "../ui-elements/TextButton";
 import { SpriteButton } from "../ui-elements/SpriteButton";
 
 var playBtn;

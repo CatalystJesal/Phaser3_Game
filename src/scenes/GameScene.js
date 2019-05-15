@@ -1,5 +1,4 @@
 import "phaser";
-import { TextButton } from "../ui-elements/TextButton";
 import { SpriteButton } from "../ui-elements/SpriteButton";
 
 var playerGraphics;
@@ -23,17 +22,11 @@ var scoreText;
 var scoreFontStyle;
 
 var isGameOver = false;
-// var gameOverText;
-var gameOverFontStyle;
 
 var gameEndContainer;
 
 var retryBtn;
 var homeBtn;
-
-var menuFontStyle;
-
-var btnStateColors;
 
 var gameOverText;
 
@@ -55,7 +48,7 @@ export default class GameScene extends Phaser.Scene {
     blocks = [];
 
     spawnRate = 150;
-    spawnRateOfDescent = 1.6;
+    spawnRateOfDescent = 1.7;
     lastSpawn = -1;
     removeBlocksYAxis = 600;
 
@@ -64,11 +57,6 @@ export default class GameScene extends Phaser.Scene {
       font: "bold 28px Helvetica",
       align: "center",
       fill: "#000000"
-    };
-    gameOverFontStyle = {
-      font: "bold 50px Helvetica",
-      align: "center",
-      color: "#A37950"
     };
 
     menuFontStyle = {
