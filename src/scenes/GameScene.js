@@ -1,5 +1,6 @@
 import "phaser";
 import { TextButton } from "../ui-elements/TextButton";
+import { SpriteButton } from "../ui-elements/SpriteButton";
 
 var playerGraphics;
 var blockGraphics;
@@ -22,7 +23,7 @@ var scoreText;
 var scoreFontStyle;
 
 var isGameOver = false;
-var gameOverText;
+// var gameOverText;
 var gameOverFontStyle;
 
 var gameEndContainer;
@@ -33,6 +34,8 @@ var homeBtn;
 var menuFontStyle;
 
 var btnStateColors;
+
+var gameOverText;
 
 export default class GameScene extends Phaser.Scene {
   constructor() {
@@ -51,41 +54,56 @@ export default class GameScene extends Phaser.Scene {
 
     blocks = [];
 
-    spawnRate = 100;
-    spawnRateOfDescent = 1.7;
+    spawnRate = 150;
+    spawnRateOfDescent = 1.6;
     lastSpawn = -1;
     removeBlocksYAxis = 600;
 
     score = 0;
-    scoreFontStyle = { fontSize: 32, fontFamily: "Helvetica", align: "center" };
-    gameOverFontStyle = {
-      fontSize: 32,
-      fontFamily: "Helvetica",
+    scoreFontStyle = {
+      font: "bold 28px Helvetica",
       align: "center",
-      color: "#661400"
+      fill: "#000000"
+    };
+    gameOverFontStyle = {
+      font: "bold 50px Helvetica",
+      align: "center",
+      color: "#A37950"
     };
 
     menuFontStyle = {
-      fontSize: 25,
-      fontFamily: "Helvetica",
+      font: "bold 30px Helvetica",
       align: "center",
-      color: "#661400"
+      color: "#A37950"
     };
 
     btnStateColors = {
-      hover: "#5b1212",
-      rest: "#661400"
+      hover: "#6F4400",
+      rest: "#A37950"
     };
   }
 
   preload() {
-    this.load.setBaseURL("http://labs.phaser.io");
+    this.load.image("gameover", "assets/gameover.png");
+    this.load.spritesheet("retry", "assets/retry.png", {
+      frameWidth: 140,
+      frameHeight: 44
+    });
+
+    this.load.spritesheet("home", "assets/home.png", {
+      frameWidth: 119,
+      frameHeight: 43.5
+    });
+    // this.load.image("home", "assets/home.png");
   }
 
   create() {
+    this.cameras.main.setBackgroundColor("#e8ecf2");
+
+    // gameOverImg.setVisible(false);
+
     blockGraphics = this.add.graphics({
-      fillStyle: { color: 0xffffff },
-      lineStyle: { color: 0x38761d }
+      fillStyle: { color: 0x000000 } //0x000000
     });
 
     playerGraphics = this.add.graphics({
@@ -103,33 +121,49 @@ export default class GameScene extends Phaser.Scene {
       .text(400, 20, "Score: 0", scoreFontStyle)
       .setOrigin(0.5, 0.5);
 
-    gameOverText = this.add
-      .text(400, 300, "Game Over", gameOverFontStyle)
-      .setOrigin(0.5, 0.5);
+    // gameOverText = this.add
+    //   .text(400, 300, "Game Over", gameOverFontStyle)
+    //   .setOrigin(0.5, 0.5);
 
-    retryBtn = new TextButton(
-      this,
-      400,
-      350,
-      "Retry",
-      menuFontStyle,
-      btnStateColors,
-      () => this.resetGame()
-    ).setOrigin(0.5, 0.5);
+    gameOverText = this.add.image(400, 300, "gameover");
+
+    // retryBtn = new TextButton(
+    //   this,
+    //   400,
+    //   355,
+    //   "Retry",
+    //   menuFontStyle,
+    //   btnStateColors,
+    //   () => this.resetGame()
+    // ).setOrigin(0.5, 0.5);
+
+    // retryBtn = new ImgButton(this, 400, 355, "Retry", 0);
+
+    retryBtn = new SpriteButton(this, 400, 365, "retry", 0, () =>
+      this.resetGame()
+    );
 
     this.add.existing(retryBtn);
 
-    homeBtn = new TextButton(
-      this,
-      400,
-      390,
-      "Home",
-      menuFontStyle,
-      btnStateColors,
-      () => this.goHome()
-    ).setOrigin(0.5, 0.5);
+    // homeBtn = new TextButton(
+    //   this,
+    //   400,
+    //   400,
+    //   "Home",
+    //   menuFontStyle,
+    //   btnStateColors,
+    //   () => this.goHome()
+    // ).setOrigin(0.5, 0.5);
+
+    homeBtn = new SpriteButton(this, 400, 420, "home", 0, () => this.goHome());
 
     this.add.existing(homeBtn);
+
+    // gameEndContainer = this.add.container(0, 0, [
+    //   gameOverText,
+    //   retryBtn,
+    //   homeBtn
+    // ]);
 
     gameEndContainer = this.add.container(0, 0, [
       gameOverText,
@@ -149,6 +183,7 @@ export default class GameScene extends Phaser.Scene {
       this.movePlayer();
     } else {
       gameEndContainer.setVisible(true);
+      // gameOverImg.setVisible(true);
 
       if (player.y < 600) {
         player.y += 1;
@@ -209,10 +244,12 @@ export default class GameScene extends Phaser.Scene {
     var locationX = Phaser.Math.Between(-20, 800);
     var locationY = Phaser.Math.Between(80, 90);
 
+    var width = Phaser.Math.Between(70, 110);
+
     var block = {
       x: locationX,
       y: locationY,
-      width: 80,
+      width: width, //was fixed 80
       height: 8
     };
 

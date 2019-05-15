@@ -1,36 +1,29 @@
 import "phaser";
 import { TextButton } from "../ui-elements/TextButton";
+import { SpriteButton } from "../ui-elements/SpriteButton";
 
-var fontStyle;
 var playBtn;
-
-var btnStateColors;
 
 export default class HomeScene extends Phaser.Scene {
   constructor() {
     super("Home");
-    fontStyle = {
-      fontSize: 32,
-      fontFamily: "Helvetica",
-      align: "center"
-    };
+  }
 
-    btnStateColors = {
-      hover: "#ccc9c9",
-      rest: "#ffffff"
-    };
+  preload() {
+    this.load.image("title", "assets/title2.png");
+
+    this.load.spritesheet("play", "assets/play.png", {
+      frameWidth: 112,
+      frameHeight: 45.5
+    });
   }
 
   create() {
-    playBtn = new TextButton(
-      this,
-      400,
-      300,
-      "Play",
-      fontStyle,
-      btnStateColors,
-      () => this.onPlay()
-    ).setOrigin(0.5, 0.5);
+    this.cameras.main.setBackgroundColor("#e8ecf2");
+
+    this.add.image(400, 60, "title");
+
+    playBtn = new SpriteButton(this, 400, 300, "play", 0, () => this.onPlay());
 
     this.add.existing(playBtn);
   }
