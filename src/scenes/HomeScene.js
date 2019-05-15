@@ -9,7 +9,7 @@ export default class HomeScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("title", "assets/title2.png");
+    this.load.image("title", "assets/title.png");
 
     this.load.spritesheet("play", "assets/play-sprite.png", {
       frameWidth: 66,
