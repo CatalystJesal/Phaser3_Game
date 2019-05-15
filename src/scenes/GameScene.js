@@ -58,17 +58,6 @@ export default class GameScene extends Phaser.Scene {
       align: "center",
       fill: "#000000"
     };
-
-    menuFontStyle = {
-      font: "bold 30px Helvetica",
-      align: "center",
-      color: "#A37950"
-    };
-
-    btnStateColors = {
-      hover: "#6F4400",
-      rest: "#A37950"
-    };
   }
 
   preload() {
