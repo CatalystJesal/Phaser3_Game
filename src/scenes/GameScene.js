@@ -47,7 +47,7 @@ export default class GameScene extends Phaser.Scene {
 
     blocks = [];
 
-    spawnRate = 150;
+    spawnRate = 130;
     spawnRateOfDescent = 1.7;
     lastSpawn = -1;
     removeBlocksYAxis = 600;
