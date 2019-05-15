@@ -62,14 +62,14 @@ export default class GameScene extends Phaser.Scene {
 
   preload() {
     this.load.image("gameover", "assets/gameover.png");
-    this.load.spritesheet("retry", "assets/retry.png", {
-      frameWidth: 140,
-      frameHeight: 44
+    this.load.spritesheet("retry", "assets/replay-sprite.png", {
+      frameWidth: 66,
+      frameHeight: 66
     });
 
-    this.load.spritesheet("home", "assets/home.png", {
-      frameWidth: 119,
-      frameHeight: 43.5
+    this.load.spritesheet("home", "assets/home-sprite.png", {
+      frameWidth: 66,
+      frameHeight: 66
     });
     // this.load.image("home", "assets/home.png");
   }
@@ -116,7 +116,7 @@ export default class GameScene extends Phaser.Scene {
 
     // retryBtn = new ImgButton(this, 400, 355, "Retry", 0);
 
-    retryBtn = new SpriteButton(this, 400, 365, "retry", 0, () =>
+    retryBtn = new SpriteButton(this, 450, 365, "retry", 0, () =>
       this.resetGame()
     );
 
@@ -132,7 +132,7 @@ export default class GameScene extends Phaser.Scene {
     //   () => this.goHome()
     // ).setOrigin(0.5, 0.5);
 
-    homeBtn = new SpriteButton(this, 400, 420, "home", 0, () => this.goHome());
+    homeBtn = new SpriteButton(this, 360, 365, "home", 0, () => this.goHome());
 
     this.add.existing(homeBtn);
 

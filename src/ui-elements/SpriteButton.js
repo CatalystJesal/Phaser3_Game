@@ -15,7 +15,7 @@ export class SpriteButton extends Phaser.GameObjects.Sprite {
     this.setFrame(1);
   }
 
-  restState(frame) {
+  restState() {
     this.setFrame(0);
   }
 }
